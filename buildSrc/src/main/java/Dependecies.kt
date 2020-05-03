@@ -1,6 +1,7 @@
 import Versions.androidCoreVersion
 import Versions.androidJUnitVersin
 import Versions.appCompatVersion
+import Versions.archVersion
 import Versions.assertJVersion
 import Versions.constraintLayoutVersion
 import Versions.daggerVersion
@@ -42,7 +43,8 @@ object Versions {
     val jUnitVersion = "4.12"
     val mockitoKotlinVersion = "2.2.0"
     val assertJVersion = "3.8.0"
-    val lifecycleVersion = "2.1.0"
+    val lifecycleVersion = "2.2.0"
+    val archVersion = "2.1.0"
     val roomVersion = "2.2.5"
     val roboelectricVersion = "4.3"
     val daggerVersion = "2.16"
@@ -122,7 +124,7 @@ object TestLibraries {
     val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
     val assertJ = "org.assertj:assertj-core:$assertJVersion"
     val roboelectric = "org.robolectric:robolectric:$roboelectricVersion"
-    val lifecycleTest = "androidx.arch.core:core-testing:$lifecycleVersion"
+    val lifecycleTest = "androidx.arch.core:core-testing:$archVersion"
     val roomTest = "androidx.room:room-testing:$roomVersion"
 
 
