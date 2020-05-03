@@ -8,6 +8,9 @@ import com.threedee.domain.usecase.CompletableUseCase
 import io.reactivex.Completable
 import javax.inject.Inject
 
+/**
+ * Use case for adding a single [Farm] from the [FarmRepository]
+ */
 class AddFarm @Inject constructor(
     val farmRepository: FarmRepository,
     threadExecutor: ThreadExecutor,

@@ -1,8 +1,19 @@
-apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply from: "../ktlint.gradle"
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-}
+    implementation project(':domain')
 
-sourceCompatibility = "7"
-targetCompatibility = "7"
+    implementation Libraries.javaxAnnotation
+    implementation Libraries.javaxInject
+    implementation Libraries.rxKotlin
+    implementation Libraries.kotlin
+
+    testImplementation TestLibraries.jUnit
+    testImplementation TestLibraries.mockitoKotlin
+    testImplementation TestLibraries.assertJ
+}
