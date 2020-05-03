@@ -43,7 +43,7 @@ object Versions {
     val mockitoKotlinVersion = "2.2.0"
     val assertJVersion = "3.8.0"
     val lifecycleVersion = "2.1.0"
-    val roomVersion = "2.2.0-rc01"
+    val roomVersion = "2.2.5"
     val roboelectricVersion = "4.3"
     val daggerVersion = "2.16"
     val glideVersion = "4.6.1"
