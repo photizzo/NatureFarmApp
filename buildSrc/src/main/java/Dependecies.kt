@@ -7,6 +7,7 @@ import Versions.constraintLayoutVersion
 import Versions.daggerVersion
 import Versions.espressoVersion
 import Versions.glideVersion
+import Versions.gsonVersion
 import Versions.hdodenhofVersion
 import Versions.jUnitVersion
 import Versions.javaxAnnotationVersion
@@ -48,6 +49,7 @@ object Versions {
     val roomVersion = "2.2.5"
     val roboelectricVersion = "4.3"
     val daggerVersion = "2.16"
+    val gsonVersion = "2.8.2"
     val glideVersion = "4.6.1"
     val timberVersion = "4.7.0"
     val rxandroidVersion = "2.1.1"
@@ -110,6 +112,9 @@ object Libraries {
     val daggerSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
     val daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
     val daggerProcessor = "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //util
+    val gson = "com.google.code.gson:gson:$gsonVersion"
 
     //logging
     val timber = "com.jakewharton.timber:timber:$timberVersion"
