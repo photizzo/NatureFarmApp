@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.threedee.domain.interactor.farm.AddFarm
 import com.threedee.domain.interactor.farm.DeleteFarm
 import com.threedee.domain.interactor.farm.GetFarms
+import com.threedee.domain.interactor.farm.LoginUser
 import com.threedee.domain.interactor.farm.UpdateFarm
 import com.threedee.domain.model.Farm
 import com.threedee.presentation.state.Resource
@@ -20,23 +21,27 @@ open class FarmViewModel @Inject constructor(
     private val getFarms: GetFarms,
     private val addFarm: AddFarm,
     private val updateFarm: UpdateFarm,
-    private val deleteFarm: DeleteFarm
+    private val deleteFarm: DeleteFarm,
+    private val loginUser: LoginUser
 ) : ViewModel() {
     //mutable livedata should be private to a single class
     private val _getFarmsLiveData: MutableLiveData<Resource<List<Farm>>> = MutableLiveData()
     private val _addFarmLiveData: MutableLiveData<Resource<Unit>> = MutableLiveData()
     private val _deleteFarmLiveData: MutableLiveData<Resource<Unit>> = MutableLiveData()
     private val _updateFarmLiveData: MutableLiveData<Resource<Unit>> = MutableLiveData()
+    private val _loginUserLiveData: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
     //exposing MutableLivedata to corresponding Livedata objects
-    private val getFarmsLiveData: MutableLiveData<Resource<List<Farm>>>
+    val getFarmsLiveData: MutableLiveData<Resource<List<Farm>>>
         get() = _getFarmsLiveData
-    private val addFarmLiveData: MutableLiveData<Resource<Unit>>
+    val addFarmLiveData: MutableLiveData<Resource<Unit>>
         get() = _addFarmLiveData
-    private val deleteFarmLiveData: MutableLiveData<Resource<Unit>>
+    val deleteFarmLiveData: MutableLiveData<Resource<Unit>>
         get() = _deleteFarmLiveData
-    private val updateFarmLiveData: MutableLiveData<Resource<Unit>>
+    val updateFarmLiveData: MutableLiveData<Resource<Unit>>
         get() = _updateFarmLiveData
+    val loginUserLiveData: MutableLiveData<Resource<Unit>>
+        get() = _loginUserLiveData
 
     override fun onCleared() {
         getFarms.dispose()
@@ -73,6 +78,14 @@ open class FarmViewModel @Inject constructor(
     fun updateFarm(param: Farm){
         _updateFarmLiveData.postValue(Resource(ResourceState.LOADING, null, null))
         updateFarm.execute(UpdateFarmCompletableSubscriber(), param)
+    }
+
+    /**
+     * Login a user
+     */
+    fun loginUser(param: LoginUser.Params){
+        _loginUserLiveData.postValue(Resource(ResourceState.LOADING, null, null))
+        loginUser.execute(LoginUserCompletableSubscriber(), param)
     }
 
     /**
@@ -120,6 +133,16 @@ open class FarmViewModel @Inject constructor(
 
         override fun onError(e: Throwable) {
             _updateFarmLiveData.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
+        }
+    }
+
+    inner class LoginUserCompletableSubscriber: DisposableCompletableObserver() {
+        override fun onComplete() {
+            _loginUserLiveData.postValue(Resource(ResourceState.SUCCESS, null, null))
+        }
+
+        override fun onError(e: Throwable) {
+            _loginUserLiveData.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
         }
     }
 }

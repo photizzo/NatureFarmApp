@@ -1,5 +1,6 @@
 package com.threedee.domain.repository
 
+import com.threedee.domain.interactor.farm.LoginUser
 import com.threedee.domain.model.Farm
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -10,6 +11,10 @@ import io.reactivex.Single
  * operations that need to be implemented
  */
 interface FarmRepository {
+    /**
+     * Login a user
+     */
+    fun loginUser(param: LoginUser.Params): Completable
     /**
      * Adding a farm
      */
