@@ -5,6 +5,8 @@ import com.threedee.cache.mapper.FarmLocationMapper
 import com.threedee.cache.mapper.FarmerMapper
 import com.threedee.data.repository.farm.FarmCache
 import com.threedee.domain.model.Farm
+import com.threedee.domain.model.FarmLocation
+import com.threedee.domain.model.Farmer
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -33,12 +35,14 @@ class FarmCacheImplementation @Inject constructor(
     override fun getAllFarms(): Single<List<Farm>> {
         return natureDatabase.cachedFarmDao().getFarms()
             .map { data ->
-                data.map { cachedFarm ->
-                    Farm(
-                        farmerMapper.mapFromCached(cachedFarm.farmer),
-                        farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
-                    )
-                }
+//                data.map { cachedFarm ->
+//                    Farm(
+//                        farmerMapper.mapFromCached(cachedFarm.farmer),
+//                        farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
+//                    )
+//                }
+                listOf(Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com"),
+                    farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))))
             }
     }
 

@@ -1,7 +1,9 @@
 package com.threedee.nature.util
 
 import android.app.Activity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
 
 fun Activity.showSnackbar(
@@ -18,3 +20,5 @@ fun Activity.showSnackbar(
     }
     snackbar.show()
 }
+
+fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View = LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
