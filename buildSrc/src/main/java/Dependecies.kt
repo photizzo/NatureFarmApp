@@ -50,7 +50,7 @@ object Versions {
     val roboelectricVersion = "4.3"
     val daggerVersion = "2.16"
     val gsonVersion = "2.8.2"
-    val glideVersion = "4.6.1"
+    val glideVersion = "4.9.0"
     val timberVersion = "4.7.0"
     val rxandroidVersion = "2.1.1"
     val recyclerViewVersion = "1.0.0"

@@ -1,10 +1,13 @@
 package com.threedee.nature.util
 
 import android.app.Activity
+import android.content.Context
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
+import java.util.Calendar
 
 fun Activity.showSnackbar(
     message: String,

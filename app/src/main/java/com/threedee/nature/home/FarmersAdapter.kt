@@ -2,6 +2,7 @@ package com.threedee.nature.home
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.threedee.domain.model.Farm
 import com.threedee.nature.R
 import com.threedee.nature.util.inflate
@@ -30,7 +31,14 @@ class FarmersAdapter(
         RecyclerView.ViewHolder(parent.inflate(R.layout.dashboard_info)) {
         fun bind(item: Farm) {
             //TODO: Add GlideApp and details and date format
-            itemView.farmerNameTextView.text = "Christiana Olaoye"
+            itemView.farmerNameTextView.text = item.farmer.fullName
+            Glide.with(itemView)
+                .load(item.farmer.avatar)
+                .centerCrop()
+                .placeholder(R.drawable.ic_person)
+                .error(R.drawable.ic_person)
+                .fallback(R.drawable.ic_person)
+                .into(itemView.profileImageView)
             itemView.setOnClickListener { itemClick.invoke(item) }
         }
     }
