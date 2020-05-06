@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.threedee.domain.model.Farm
 import com.threedee.nature.R
+import com.threedee.nature.add.AddFarmActivity
 import com.threedee.nature.databinding.ActivityLoginBinding
 import com.threedee.nature.databinding.ActivityMainBinding
 import com.threedee.nature.util.showSnackbar
@@ -56,7 +57,10 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViews() {
         binding.farmerRecyclerView.adapter = farmersAdapter
         binding.farmerRecyclerView.layoutManager = LinearLayoutManager(this)
-//        binding.farmerRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.farmerRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.floatingActionButton.setOnClickListener {
+            AddFarmActivity.startActivity(this)
+        }
     }
 
     private fun setDashboardData(farms: List<Farm>) {

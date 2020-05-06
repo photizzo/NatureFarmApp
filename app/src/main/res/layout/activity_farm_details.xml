@@ -182,8 +182,9 @@
             app:layout_constraintStart_toStartOf="@+id/addressTextView"
             app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
 
-        <com.google.android.gms.maps.MapView
+        <fragment
             android:id="@+id/farmMapView"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -193,5 +194,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView12"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
