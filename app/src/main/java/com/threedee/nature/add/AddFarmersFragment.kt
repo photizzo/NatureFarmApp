@@ -17,7 +17,7 @@ class AddFarmersFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.layout_farmer_details, container, false);
+            inflater, R.layout.layout_farmer_details, container, false)
         return binding.root
     }
 

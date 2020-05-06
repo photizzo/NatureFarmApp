@@ -17,10 +17,13 @@ class AddFarmLocationDetailsFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.layout_farm_details, container, false);
+            inflater, R.layout.layout_farm_details, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.pickCoordinatorButton.setOnClickListener {
+            PickFarmCoordinatesActivity.startActivity(view.context)
+        }
     }
 }
