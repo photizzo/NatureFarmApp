@@ -5,5 +5,6 @@ data class Farmer(
     val fullName: String,
     val phone: String,
     val avatar: String,
-    val email: String?
+    val email: String?,
+    val timeStamp: Long
 )

@@ -26,7 +26,6 @@
                     android:id="@+id/emptyTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/black"
                     android:fontFamily="@font/nunito_bold"
                     android:text="No data available 😢"
                     android:textAlignment="center"
@@ -91,7 +90,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/totalFarmers2"
+                        android:id="@+id/statFarmers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -117,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="Farmers\nRegistered"
+                        android:text="Farms\nRegistered\nToday"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

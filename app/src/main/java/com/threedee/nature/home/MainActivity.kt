@@ -15,12 +15,14 @@ import com.threedee.nature.R
 import com.threedee.nature.add.AddFarmActivity
 import com.threedee.nature.databinding.ActivityLoginBinding
 import com.threedee.nature.databinding.ActivityMainBinding
+import com.threedee.nature.util.isToday
 import com.threedee.nature.util.showSnackbar
 import com.threedee.presentation.state.Resource
 import com.threedee.presentation.state.ResourceState
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
+import java.util.Calendar
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -64,7 +66,10 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun setDashboardData(farms: List<Farm>) {
-
+        binding.totalFarmers.text = farms.size.toString()
+        binding.statFarmers.text =farms.filter { farm ->
+            farm.farmer.timeStamp.isToday(this)
+        }.size.toString()
     }
 
     private fun handleGetFarms(resource: Resource<List<Farm>>){

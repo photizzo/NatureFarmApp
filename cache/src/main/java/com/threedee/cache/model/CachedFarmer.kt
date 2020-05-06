@@ -11,5 +11,6 @@ class CachedFarmer(
     val fullName: String = "",
     val phone: String = "",
     val avatar: String = "",
-    val email: String? = null
+    val email: String? = null,
+    val timeStamp: Long = 0L
 )

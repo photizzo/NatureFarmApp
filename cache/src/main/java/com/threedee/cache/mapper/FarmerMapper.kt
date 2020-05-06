@@ -10,10 +10,10 @@ import javax.inject.Inject
  */
 open class FarmerMapper @Inject constructor() : EntityMapper<CachedFarmer, Farmer> {
     override fun mapFromCached(type: CachedFarmer): Farmer {
-        return Farmer(type.id, type.fullName, type.phone, type.avatar, type.email)
+        return Farmer(type.id, type.fullName, type.phone, type.avatar, type.email, type.timeStamp)
     }
 
     override fun mapToCached(type: Farmer): CachedFarmer {
-        return CachedFarmer(type.id, type.fullName, type.phone, type.avatar, type.email)
+        return CachedFarmer(type.id, type.fullName, type.phone, type.avatar, type.email, type.timeStamp)
     }
 }

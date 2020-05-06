@@ -9,6 +9,7 @@ import com.threedee.domain.model.FarmLocation
 import com.threedee.domain.model.Farmer
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.util.Calendar
 import javax.inject.Inject
 
 /**
@@ -41,8 +42,10 @@ class FarmCacheImplementation @Inject constructor(
 //                        farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
 //                    )
 //                }
-                listOf(Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com"),
-                    farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))))
+                listOf(Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com", Calendar.getInstance().timeInMillis),
+                    farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))),
+                    Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com", Calendar.getInstance().timeInMillis),
+                        farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))))
             }
     }
 
