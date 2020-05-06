@@ -1,5 +1,6 @@
 package com.threedee.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.threedee.domain.interactor.farm.AddFarm
@@ -8,6 +9,8 @@ import com.threedee.domain.interactor.farm.GetFarms
 import com.threedee.domain.interactor.farm.LoginUser
 import com.threedee.domain.interactor.farm.UpdateFarm
 import com.threedee.domain.model.Farm
+import com.threedee.domain.model.FarmLocation
+import com.threedee.domain.model.Farmer
 import com.threedee.presentation.state.Resource
 import com.threedee.presentation.state.ResourceState
 import io.reactivex.observers.DisposableCompletableObserver
@@ -32,16 +35,21 @@ open class FarmViewModel @Inject constructor(
     private val _loginUserLiveData: MutableLiveData<Resource<Unit>> = MutableLiveData()
 
     //exposing MutableLivedata to corresponding Livedata objects
-    val getFarmsLiveData: MutableLiveData<Resource<List<Farm>>>
+    val getFarmsLiveData: LiveData<Resource<List<Farm>>>
         get() = _getFarmsLiveData
-    val addFarmLiveData: MutableLiveData<Resource<Unit>>
+    val addFarmLiveData: LiveData<Resource<Unit>>
         get() = _addFarmLiveData
-    val deleteFarmLiveData: MutableLiveData<Resource<Unit>>
+    val deleteFarmLiveData: LiveData<Resource<Unit>>
         get() = _deleteFarmLiveData
-    val updateFarmLiveData: MutableLiveData<Resource<Unit>>
+    val updateFarmLiveData: LiveData<Resource<Unit>>
         get() = _updateFarmLiveData
-    val loginUserLiveData: MutableLiveData<Resource<Unit>>
+    val loginUserLiveData: LiveData<Resource<Unit>>
         get() = _loginUserLiveData
+
+    //adding farms data
+    var currentPage: MutableLiveData<Int> = MutableLiveData()
+    var farmer: MutableLiveData<Farmer> = MutableLiveData()
+    var farmLocation: MutableLiveData<FarmLocation> = MutableLiveData()
 
     override fun onCleared() {
         getFarms.dispose()

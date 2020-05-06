@@ -2,10 +2,14 @@ package com.threedee.nature.util
 
 import android.app.Activity
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.format.DateFormat
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import java.util.Calendar
 
@@ -54,3 +58,28 @@ fun Long.isToday(context: Context): Boolean {
     val now = Calendar.getInstance()
     return now.get(Calendar.DATE) === smsTime.get(Calendar.DATE)
 }
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object: TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            afterTextChanged.invoke(s.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+    })
+}
+
+fun EditText.validate(message: String, validator: (String) -> Boolean) {
+    this.afterTextChanged {
+        this.error = if (validator(it)) null else message
+    }
+    this.error = if (validator(this.text.toString())) null else message
+}
+
+fun String.isValidEmail(): Boolean
+    = this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun String.isValidPhone(): Boolean = this.isNotEmpty() && this.length == 11
+
+fun String.isValidName(): Boolean = this.isNotEmpty() && this.length > 3

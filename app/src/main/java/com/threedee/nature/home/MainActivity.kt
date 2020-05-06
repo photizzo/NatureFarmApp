@@ -28,8 +28,8 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private  lateinit var farmViewModel: FarmViewModel
-    private var farmersAdapter = FarmersAdapter(arrayListOf()) {farm ->
+    private lateinit var farmViewModel: FarmViewModel
+    private var farmersAdapter = FarmersAdapter(arrayListOf()) { farm ->
         itemClick(farm)
     }
     lateinit var binding: ActivityMainBinding
@@ -44,9 +44,10 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun itemClick(item: Farm) {
         FarmDetailsActivity.startActivity(this)
     }
+
     private fun initViewModel() {
         farmViewModel = ViewModelProvider(this, viewModelFactory).get(FarmViewModel::class.java)
-        farmViewModel.getFarmsLiveData.observe(this, Observer {resource ->
+        farmViewModel.getFarmsLiveData.observe(this, Observer { resource ->
             handleGetFarms(resource)
         })
     }
@@ -59,7 +60,12 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViews() {
         binding.farmerRecyclerView.adapter = farmersAdapter
         binding.farmerRecyclerView.layoutManager = LinearLayoutManager(this)
-        binding.farmerRecyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        binding.farmerRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         binding.floatingActionButton.setOnClickListener {
             AddFarmActivity.startActivity(this)
         }
@@ -67,17 +73,18 @@ class MainActivity : DaggerAppCompatActivity() {
 
     private fun setDashboardData(farms: List<Farm>) {
         binding.totalFarmers.text = farms.size.toString()
-        binding.statFarmers.text =farms.filter { farm ->
+        binding.statFarmers.text = farms.filter { farm ->
             farm.farmer.timeStamp.isToday(this)
         }.size.toString()
     }
 
-    private fun handleGetFarms(resource: Resource<List<Farm>>){
+    private fun handleGetFarms(resource: Resource<List<Farm>>) {
         when (resource.status) {
-            ResourceState.LOADING -> {}
+            ResourceState.LOADING -> {
+            }
             ResourceState.SUCCESS -> {
-                resource.data?.let {farms ->
-                    if (farms.isEmpty()){
+                resource.data?.let { farms ->
+                    if (farms.isEmpty()) {
                         binding.emptyTextView.visibility = View.VISIBLE
                         binding.farmerRecyclerView.visibility = View.GONE
                     } else {
