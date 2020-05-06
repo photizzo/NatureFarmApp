@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.threedee.nature.login.LoginActivity
 import com.threedee.nature.R
+import com.threedee.nature.home.MainActivity
+import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
 

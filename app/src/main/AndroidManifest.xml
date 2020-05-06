@@ -12,7 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".add.PickFarmCoordinatesActivity"></activity>
+        <activity android:name=".AddFarmActivity" />
+        <activity android:name=".add.AddFarmActivity" />
+        <activity android:name=".home.FarmDetailsActivity" />
+        <activity android:name=".login.LoginActivity" />
         <activity
             android:name=".splash.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -22,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.MainActivity"></activity>
+        <activity android:name=".home.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

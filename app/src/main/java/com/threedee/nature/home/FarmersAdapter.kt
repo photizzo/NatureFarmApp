@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.threedee.domain.model.Farm
 import com.threedee.nature.databinding.DashboardInfoBinding
 
-class FarmersAdapter(private var items: ArrayList<Farm>) : RecyclerView.Adapter<FarmersAdapter.ViewHolder>() {
+class FarmersAdapter(private var items: ArrayList<Farm>,
+    private val itemClick: (farm: Farm) -> Unit) : RecyclerView.Adapter<FarmersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,6 +29,7 @@ class FarmersAdapter(private var items: ArrayList<Farm>) : RecyclerView.Adapter<
             with(binding) {
                 //TODO: Add GlideApp and details and date format
                 binding.farmerNameTextView.text = "Christiana Olaoye"
+                binding.root.setOnClickListener { itemClick.invoke(item) }
             }
         }
     }

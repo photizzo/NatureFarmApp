@@ -19,14 +19,18 @@ import com.threedee.presentation.state.Resource
 import com.threedee.presentation.state.ResourceState
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerAppCompatActivity
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private  lateinit var farmViewModel: FarmViewModel
-    private var farmersAdapter = FarmersAdapter(arrayListOf())
+    private var farmersAdapter = FarmersAdapter(arrayListOf()) {farm ->
+        itemClick(farm)
+    }
     lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -34,6 +38,9 @@ class MainActivity : DaggerAppCompatActivity() {
         initViews()
     }
 
+    private fun itemClick(item: Farm) {
+        FarmDetailsActivity.startActivity(this)
+    }
     private fun initViewModel() {
         farmViewModel = ViewModelProvider(this, viewModelFactory).get(FarmViewModel::class.java)
         farmViewModel.getFarmsLiveData.observe(this, Observer {resource ->

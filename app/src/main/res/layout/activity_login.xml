@@ -66,6 +66,12 @@
                 android:orientation="horizontal"
                 android:padding="16dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nunito"
+                    android:text="New to Nature?" />
+
                 <Button
                     android:id="@+id/createAccountButton"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -78,12 +84,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito"
-                    android:text="New to Nature?" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

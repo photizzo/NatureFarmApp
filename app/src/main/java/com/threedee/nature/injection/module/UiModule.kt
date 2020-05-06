@@ -2,6 +2,7 @@ package com.threedee.nature.injection.module
 
 import com.threedee.domain.executor.PostExecutionThread
 import com.threedee.nature.UiThread
+import com.threedee.nature.home.FarmDetailsActivity
 import com.threedee.nature.home.MainActivity
 import com.threedee.nature.login.LoginActivity
 import dagger.Binds
@@ -26,5 +27,6 @@ abstract class UiModule {
     @ContributesAndroidInjector
     abstract fun contributeMainActivity(): MainActivity
 
-
+    @ContributesAndroidInjector
+    abstract fun contributeFarmDetailActivity(): FarmDetailsActivity
 }
