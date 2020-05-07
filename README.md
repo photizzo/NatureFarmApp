@@ -29,7 +29,6 @@ Finally I started work on the UI layer. I used the MVVM architecture supported b
 I had a lot of fun building this. There are some improvements I intend to make.
 
 - Write tests for UI. </br>
-- Use MockWebServer to test `Remote` layer API calls.</br>
 - Improve UI and add a animations</br>
 - Write Unit tests.
 
