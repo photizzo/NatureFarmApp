@@ -50,6 +50,7 @@ class AddFarmActivity : DaggerAppCompatActivity() {
            binding.viewpager.currentItem = currentPage
         })
         farmViewModel.addFarmLiveData.observe(this, Observer {
+            SuccessActivity.startActivity(this)
             finish()
         })
         farmViewModel.updateFarmLiveData.observe(this, Observer {
