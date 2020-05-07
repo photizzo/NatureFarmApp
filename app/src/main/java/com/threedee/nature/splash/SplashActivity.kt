@@ -14,7 +14,7 @@ class SplashActivity : AppCompatActivity() {
         // Revert back to app theme before super.onCreate()
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        MainActivity.startActivity(this)
+        LoginActivity.startActivity(this)
         finish()
     }
 }
