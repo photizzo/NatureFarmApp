@@ -21,6 +21,7 @@ import com.threedee.nature.eventBus.MessageEvent
 import com.threedee.nature.eventBus.RxBus
 import com.threedee.nature.home.FarmDetailsActivity
 import com.threedee.nature.home.MainActivity
+import com.threedee.nature.util.hideKeyboard
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import org.greenrobot.eventbus.EventBus
@@ -45,7 +46,7 @@ class AddFarmActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         farmViewModel = ViewModelProvider(this, viewModelFactory).get(FarmViewModel::class.java)
         farmViewModel.currentPage.observe(this, Observer { currentPage ->
-            Timber.e("current page here: $currentPage")
+            hideKeyboard()
            binding.viewpager.currentItem = currentPage
         })
         farmViewModel.addFarmLiveData.observe(this, Observer {

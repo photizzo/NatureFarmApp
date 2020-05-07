@@ -56,6 +56,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Timber.e("OnResume is called.")
         farmViewModel.getFarms()
     }
 
@@ -93,7 +94,7 @@ class MainActivity : DaggerAppCompatActivity() {
                         binding.emptyTextView.visibility = View.GONE
                         binding.farmerRecyclerView.visibility = View.VISIBLE
                         setDashboardData(farms)
-                        farmersAdapter.setData(farms)
+                        farmersAdapter.setData(farms.sortedByDescending { it.farmer.timeStamp })
                     }
                 }
             }
