@@ -188,6 +188,9 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
             farmViewModel.locations.value = arrayListOf()
             locationsArray = arrayListOf()
         }
+        binding.infoButton.setOnClickListener {
+            sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
     }
 
     private fun initBottomSheet() {

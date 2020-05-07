@@ -47,7 +47,7 @@ fun Long.getFormattedDate(context: Context): String {
     } else if (now.get(Calendar.YEAR) === smsTime.get(Calendar.YEAR)) {
         DateFormat.format(dateTimeFormatString, smsTime).toString()
     } else {
-        DateFormat.format("MMMM dd yyyy, h:mm aa", smsTime).toString()
+        DateFormat.format("MMMM dd yyyy", smsTime).toString()
     }
 }
 

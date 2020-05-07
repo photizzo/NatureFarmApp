@@ -34,6 +34,7 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
 
@@ -65,7 +66,7 @@ class AddFarmersFragment : DaggerFragment() {
                 // Go to next page
                 farmViewModel.currentPage.value = 1
                 val farmer = Farmer(-1, binding.nameTextField.editText?.text.toString(), binding.phoneTextField.editText?.text.toString(),
-                    farmViewModel.currentPhotoPath.value.toString(), binding.emailTextField.editText?.text.toString(), 0L)
+                    farmViewModel.currentPhotoPath.value.toString(), binding.emailTextField.editText?.text.toString(), Calendar.getInstance().timeInMillis)
                 farmViewModel.farmer.value = farmer
             } else {
                 activity?.showSnackbar("Fields marked * are compulsory")

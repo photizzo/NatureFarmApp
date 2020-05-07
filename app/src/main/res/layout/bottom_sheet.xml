@@ -42,11 +42,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="TextView"
+                android:text="To correctly take your farm map \n1. Make sure you are standing on the edge of your farm as shown on the map \n\n2.Tap on the 'Pick Here' button to make each point your stand that is your farm edge as your move along the farm.\n\n3. If you make any mistakes tap on the 'Start Again' button \n\n4. When you are done tap 'Done"
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/closeButton" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/closeSheet"
@@ -64,6 +64,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/messageTextView" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Guide to map your farm"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
