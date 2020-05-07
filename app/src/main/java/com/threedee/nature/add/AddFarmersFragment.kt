@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.threedee.domain.model.Farmer
@@ -34,7 +35,6 @@ import javax.inject.Inject
 
 class AddFarmersFragment : DaggerFragment() {
     private lateinit var binding: LayoutFarmerDetailsBinding
-    var currentPhotoPath: String = ""
     val REQUEST_TAKE_PHOTO = 1
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -57,11 +57,12 @@ class AddFarmersFragment : DaggerFragment() {
             dispatchTakePictureIntent(view.context)
         }
         binding.nextButton.setOnClickListener {
+            Timber.e("Validate clicked ${validateUserInput()}")
             if (validateUserInput()){
                 // Go to next page
                 farmViewModel.currentPage.value = 1
                 val farmer = Farmer(-1, binding.nameTextField.editText?.text.toString(), binding.phoneTextField.editText?.text.toString(),
-                    currentPhotoPath, binding.emailTextField.editText?.text.toString(), 0L)
+                    farmViewModel.currentPhotoPath.value.toString(), binding.emailTextField.editText?.text.toString(), 0L)
                 farmViewModel.farmer.value = farmer
             } else {
                 activity?.showSnackbar("Fields marked * are compulsory")
@@ -72,6 +73,15 @@ class AddFarmersFragment : DaggerFragment() {
     private fun initViewModel() {
         activity?.let {
             farmViewModel = ViewModelProvider(it, viewModelFactory).get(FarmViewModel::class.java)
+            farmViewModel.currentPhotoPath.observe(viewLifecycleOwner, Observer {url ->
+                setProfileImage(url)
+            })
+            farmViewModel.farmer.observe(viewLifecycleOwner, Observer {farmer ->
+                setProfileImage(farmer.avatar)
+                binding.nameTextField.editText?.setText(farmer.fullName)
+                binding.phoneTextField.editText?.setText(farmer.phone)
+                binding.emailTextField.editText?.setText(farmer.email)
+            })
         }
     }
 
@@ -81,7 +91,7 @@ class AddFarmersFragment : DaggerFragment() {
         binding.nameTextField.editText?.validate("Valid name required!") {data -> data.isValidName()}
 
         return binding.nameTextField.editText?.text.toString().isValidName() && binding.emailTextField.editText?.text.toString().isValidEmail() &&
-            binding.phoneTextField.editText?.text.toString().isValidPhone() && currentPhotoPath.isNotEmpty()
+            binding.phoneTextField.editText?.text.toString().isValidPhone() && farmViewModel.currentPhotoPath.value.toString().isNotEmpty()
     }
 
     private fun setProfileImage(url: String) {
@@ -107,7 +117,7 @@ class AddFarmersFragment : DaggerFragment() {
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
+            farmViewModel.currentPhotoPath.value = absolutePath
         }
     }
 
@@ -138,7 +148,7 @@ class AddFarmersFragment : DaggerFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            setProfileImage(currentPhotoPath)
+            setProfileImage(farmViewModel.currentPhotoPath.value.toString())
         }
     }
 }

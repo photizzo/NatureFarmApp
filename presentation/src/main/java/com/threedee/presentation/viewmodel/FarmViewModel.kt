@@ -50,7 +50,9 @@ open class FarmViewModel @Inject constructor(
     var currentPage: MutableLiveData<Int> = MutableLiveData()
     var farmer: MutableLiveData<Farmer> = MutableLiveData()
     var farmLocation: MutableLiveData<FarmLocation> = MutableLiveData()
-
+    var currentPhotoPath: MutableLiveData<String> = MutableLiveData()
+    var latitudes: MutableLiveData<ArrayList<Double>> = MutableLiveData()
+    var longitudes: MutableLiveData<ArrayList<Double>> = MutableLiveData()
     override fun onCleared() {
         getFarms.dispose()
         super.onCleared()
