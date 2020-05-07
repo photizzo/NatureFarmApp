@@ -3,6 +3,7 @@ package com.threedee.cache.implementation
 import com.threedee.cache.db.NatureDatabase
 import com.threedee.cache.mapper.FarmLocationMapper
 import com.threedee.cache.mapper.FarmerMapper
+import com.threedee.cache.model.CachedFarm
 import com.threedee.data.repository.farm.FarmCache
 import com.threedee.domain.model.Farm
 import com.threedee.domain.model.FarmLocation
@@ -23,29 +24,22 @@ class FarmCacheImplementation @Inject constructor(
     private val farmLocationMapper: FarmLocationMapper
 ) : FarmCache {
     override fun addFarm(param: Farm): Completable {
-        return natureDatabase.cachedFarmDao().insertFarmer(farmerMapper.mapToCached(param.farmer))
-            .concatWith(
-                natureDatabase.cachedFarmDao().insertFarmLocation(
-                    farmLocationMapper.mapToCached(
-                        param.farmLocation
-                    )
-                )
-            )
+        return natureDatabase.cachedFarmDao().insertFarm(CachedFarm(
+            farmerMapper.mapToCached(param.farmer),
+            farmLocationMapper.mapToCached(param.farmLocation), -1
+            ))
     }
 
     override fun getAllFarms(): Single<List<Farm>> {
         return natureDatabase.cachedFarmDao().getFarms()
             .map { data ->
-//                data.map { cachedFarm ->
-//                    Farm(
-//                        farmerMapper.mapFromCached(cachedFarm.farmer),
-//                        farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
-//                    )
-//                }
-                listOf(Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com", Calendar.getInstance().timeInMillis),
-                    farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))),
-                    Farm(farmer = Farmer(1, "Christiana Olaoye", "09039760212", "", "christy@gmail.com", Calendar.getInstance().timeInMillis),
-                        farmLocation = FarmLocation(1, "Adale", "Adale", listOf(9.0), listOf(8.0))))
+                println("db data: $data")
+                data.map { cachedFarm ->
+                    Farm(
+                        farmerMapper.mapFromCached(cachedFarm.farmer),
+                        farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
+                    )
+                }
             }
     }
 

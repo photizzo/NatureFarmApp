@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.threedee.domain.model.Farmer
 import com.threedee.nature.R
 import com.threedee.nature.databinding.LayoutFarmerDetailsBinding
+import com.threedee.nature.eventBus.MessageEvent
 import com.threedee.nature.util.isValidEmail
 import com.threedee.nature.util.isValidName
 import com.threedee.nature.util.isValidPhone
@@ -26,6 +27,9 @@ import com.threedee.nature.util.showSnackbar
 import com.threedee.nature.util.validate
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -57,7 +61,6 @@ class AddFarmersFragment : DaggerFragment() {
             dispatchTakePictureIntent(view.context)
         }
         binding.nextButton.setOnClickListener {
-            Timber.e("Validate clicked ${validateUserInput()}")
             if (validateUserInput()){
                 // Go to next page
                 farmViewModel.currentPage.value = 1
@@ -95,7 +98,6 @@ class AddFarmersFragment : DaggerFragment() {
     }
 
     private fun setProfileImage(url: String) {
-        Timber.e("Photo url: $url")
         Glide.with(this)
             .load(url)
             .centerCrop()
@@ -145,6 +147,7 @@ class AddFarmersFragment : DaggerFragment() {
             }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {

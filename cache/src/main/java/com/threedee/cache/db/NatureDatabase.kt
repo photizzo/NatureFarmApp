@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.threedee.cache.dao.CachedFarmDao
+import com.threedee.cache.model.CachedFarm
 import com.threedee.cache.model.CachedFarmLocation
 import com.threedee.cache.model.CachedFarmer
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
  * Provides the database instance
  */
 @Database(
-    entities = [CachedFarmer::class, CachedFarmLocation::class],
+    entities = [CachedFarmer::class, CachedFarmLocation::class, CachedFarm::class],
     exportSchema = true,
     version = 1
 )

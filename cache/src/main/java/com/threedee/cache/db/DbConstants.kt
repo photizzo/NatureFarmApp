@@ -10,4 +10,8 @@ object DbConstants {
 
     //Farm Location table
     const val FARM_LOCATION_TABLE_NAME = "farm_locations"
+
+    const val FARM_TABLE_NAME = "farm"
+    const val QUERY_FARMS = "SELECT * FROM $FARM_TABLE_NAME"
+
 }

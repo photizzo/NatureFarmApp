@@ -2,6 +2,7 @@ package com.threedee.nature.home
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -39,6 +40,12 @@ class FarmDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         }
+    }
+
+    private fun callPhone(phone: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$phone")
+        startActivity(intent)
     }
 
     private fun setProfileImage(url: String) {

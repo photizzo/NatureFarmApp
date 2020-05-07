@@ -21,9 +21,14 @@ abstract class CachedFarmDao {
     /**
      * Get a list of farms
      */
-    @Query(DbConstants.QUERY_FARMERS)
-    @Transaction
+    @Query(DbConstants.QUERY_FARMS)
     abstract fun getFarms(): Single<List<CachedFarm>>
+
+    /**
+     * Insert a farm and creates a new row
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertFarm(param: CachedFarm): Completable
 
     /**
      * Insert a farmer and creates a new row

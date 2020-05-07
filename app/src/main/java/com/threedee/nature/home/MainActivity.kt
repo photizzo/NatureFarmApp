@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.threedee.domain.model.Farm
 import com.threedee.nature.R
 import com.threedee.nature.add.AddFarmActivity
@@ -96,7 +97,9 @@ class MainActivity : DaggerAppCompatActivity() {
                 }
             }
             ResourceState.ERROR -> {
-                resource.message?.let { showSnackbar(it) }
+                resource.message?.let {
+                    Timber.e("message: $it")
+                    showSnackbar(it) }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.threedee.presentation.viewmodel
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -51,8 +52,8 @@ open class FarmViewModel @Inject constructor(
     var farmer: MutableLiveData<Farmer> = MutableLiveData()
     var farmLocation: MutableLiveData<FarmLocation> = MutableLiveData()
     var currentPhotoPath: MutableLiveData<String> = MutableLiveData()
-    var latitudes: MutableLiveData<ArrayList<Double>> = MutableLiveData()
-    var longitudes: MutableLiveData<ArrayList<Double>> = MutableLiveData()
+
+    var locations: MutableLiveData<ArrayList<Location>> = MutableLiveData()
     override fun onCleared() {
         getFarms.dispose()
         super.onCleared()

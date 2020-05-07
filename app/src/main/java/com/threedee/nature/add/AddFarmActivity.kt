@@ -1,5 +1,6 @@
 package com.threedee.nature.add
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +14,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.threedee.nature.R
 import com.threedee.nature.databinding.ActivityAddFarmBinding
+import com.threedee.nature.eventBus.MessageEvent
+import com.threedee.nature.eventBus.RxBus
 import com.threedee.nature.home.MainActivity
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerAppCompatActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import timber.log.Timber
 import javax.inject.Inject
 
 class AddFarmActivity : DaggerAppCompatActivity() {
@@ -34,7 +41,11 @@ class AddFarmActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         farmViewModel = ViewModelProvider(this, viewModelFactory).get(FarmViewModel::class.java)
         farmViewModel.currentPage.observe(this, Observer { currentPage ->
+            Timber.e("current page here: $currentPage")
            binding.viewpager.currentItem = currentPage
+        })
+        farmViewModel.addFarmLiveData.observe(this, Observer {
+            finish()
         })
     }
 

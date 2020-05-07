@@ -5,6 +5,7 @@ import com.threedee.nature.UiThread
 import com.threedee.nature.add.AddFarmActivity
 import com.threedee.nature.add.AddFarmLocationDetailsFragment
 import com.threedee.nature.add.AddFarmersFragment
+import com.threedee.nature.add.PickFarmCoordinatesActivity
 import com.threedee.nature.home.FarmDetailsActivity
 import com.threedee.nature.home.MainActivity
 import com.threedee.nature.login.LoginActivity
@@ -32,6 +33,9 @@ abstract class UiModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddFarmActivity(): AddFarmActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributePickCoordinatesActivity(): PickFarmCoordinatesActivity
 
     @ContributesAndroidInjector
     abstract fun contributeAddFarmerFragment(): AddFarmersFragment
