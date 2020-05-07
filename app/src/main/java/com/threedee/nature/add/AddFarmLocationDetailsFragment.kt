@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -42,6 +43,7 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
     private lateinit var farmViewModel: FarmViewModel
     private var mMap: GoogleMap? = null
     var polyline: Polyline? = null
+    var latLngCache = arrayListOf<LatLng>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -111,16 +113,17 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
                 val latLng = LatLng(location.latitude, location.longitude)
                 latLngs.add(latLng)
             }
+            latLngCache = latLngs
             drawPolyline(latLngs)
         }
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
-        mMap!!.setMinZoomPreference(12.0f)
-        mMap!!.uiSettings.isCompassEnabled = false
-        mMap!!.uiSettings.isMapToolbarEnabled = false
-        mMap!!.uiSettings.isTiltGesturesEnabled = false
+        val myPlace = LatLng(40.73, -73.99)  // this is New York
+        mMap!!.setMinZoomPreference(15.0f)
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(myPlace))
+        if (latLngCache.isNotEmpty()) drawPolyline(latLngCache)
     }
 
     private fun drawPolyline(latLngs: List<LatLng>) {
@@ -136,6 +139,7 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
         polyline?.width = POLYLINE_STROKE_WIDTH_PX
         polyline?.color = Color.BLACK
         polyline?.jointType = JointType.ROUND
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLngs[0]))
     }
 
     private fun validateUserInput(): Boolean {

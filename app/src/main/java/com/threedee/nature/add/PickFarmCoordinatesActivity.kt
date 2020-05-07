@@ -67,7 +67,8 @@ import java.text.DateFormat
 import java.util.Date
 import javax.inject.Inject
 
-class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallback, GoogleMap.OnCameraIdleListener {
+class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallback,
+    GoogleMap.OnCameraIdleListener {
     //these variables control the moving of the car on the map
     private var marker: Marker? = null
     private var pickHereMarker: Marker? = null
@@ -128,7 +129,6 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
         binding = DataBindingUtil.setContentView(this, R.layout.activity_pick_farm_coordinates)
         initViews()
         initViewModel()
-
         initLocation(savedInstanceState)
     }
 
@@ -141,7 +141,12 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
                 val latLng = LatLng(location.latitude, location.longitude)
                 latLngs.add(latLng)
             }
-            if(latLngs.size > 2) latLngs.add(LatLng(farmViewModel.locations.value!![0].latitude, farmViewModel.locations.value!![0].longitude))
+            if (latLngs.size > 2) latLngs.add(
+                LatLng(
+                    farmViewModel.locations.value!![0].latitude,
+                    farmViewModel.locations.value!![0].longitude
+                )
+            )
             latLngs.forEach { addMarker(it) }
             drawPolyline(latLngs)
         }
@@ -168,7 +173,12 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
                     latLngs.add(latLng)
                 }
                 // close the polyline loop
-                if(latLngs.size > 2) latLngs.add(LatLng(farmViewModel.locations.value!![0].latitude, farmViewModel.locations.value!![0].longitude))
+                if (latLngs.size > 2) latLngs.add(
+                    LatLng(
+                        farmViewModel.locations.value!![0].latitude,
+                        farmViewModel.locations.value!![0].longitude
+                    )
+                )
                 drawPolyline(latLngs)
             }
         }
@@ -179,7 +189,12 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
                 latLngs.add(latLng)
             }
             // close the polyline loop
-            if(latLngs.size > 2) latLngs.add(LatLng(farmViewModel.locations.value!![0].latitude, farmViewModel.locations.value!![0].longitude))
+            if (latLngs.size > 2) latLngs.add(
+                LatLng(
+                    farmViewModel.locations.value!![0].latitude,
+                    farmViewModel.locations.value!![0].longitude
+                )
+            )
             if (farmViewModel.locations.value != null) RxBus.publish(MessageEvent(farmViewModel.locations.value!!))
             finish()
         }
@@ -219,8 +234,10 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
         polyline?.remove()
         Timber.e("drawing polyline")
         val POLYLINE_STROKE_WIDTH_PX = 12F
-        polyline = mMap!!.addPolyline(PolylineOptions()
-            .addAll(latLngs.toMutableList()))
+        polyline = mMap!!.addPolyline(
+            PolylineOptions()
+                .addAll(latLngs.toMutableList())
+        )
         polyline?.endCap = RoundCap()
         polyline?.width = POLYLINE_STROKE_WIDTH_PX
         polyline?.color = Color.BLACK
@@ -260,9 +277,9 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
             val newPos = LatLng(lat, lng)
             marker!!.position = newPos
             marker!!.setAnchor(0.5f, 0.5f)
-            marker!!.rotation = getBearing(latLngs[0], newPos)
+//            marker!!.rotation = getBearing(latLngs[0], newPos)
             var zoom = mMap!!.cameraPosition.zoom
-            if (zoom <= 15) {
+            if (zoom <= 12) {
                 zoom = 15.5f
             }
             mMap!!.animateCamera(

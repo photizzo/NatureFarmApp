@@ -8,6 +8,21 @@
         android:layout_height="match_parent"
         tools:context=".home.FarmDetailsActivity">
 
+        <fragment
+            android:id="@+id/farmMapView"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView12"
+            app:layout_constraintTop_toBottomOf="@+id/textView12"
+            app:layout_constraintVertical_bias="0.0" />
+
         <ImageButton
             android:id="@+id/editButton"
             android:layout_width="wrap_content"
@@ -179,19 +194,6 @@
             android:text="Farm Layout"
             app:layout_constraintStart_toStartOf="@+id/addressTextView"
             app:layout_constraintTop_toBottomOf="@+id/addressTextView" />
-
-        <fragment
-            android:id="@+id/farmMapView"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView12"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

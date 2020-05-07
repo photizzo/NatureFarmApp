@@ -92,13 +92,14 @@
 
             <ImageView
                 android:id="@+id/infoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_info" />
+                app:srcCompat="@drawable/ic_info"
+                android:tint="@android:color/darker_gray"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include

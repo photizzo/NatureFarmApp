@@ -36,7 +36,6 @@
                     android:layout_height="0dp"
                     android:background="@color/colorPrimary"
                     android:fontFamily="@font/nunito_bold"
-                    android:gravity="center_vertical"
                     android:paddingStart="16dp"
                     android:text="Tell us about yourself?"
                     android:textColor="@android:color/white"
