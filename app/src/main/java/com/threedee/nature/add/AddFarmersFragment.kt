@@ -104,9 +104,8 @@ class AddFarmersFragment : DaggerFragment() {
         Glide.with(this)
             .load(url)
             .centerCrop()
-            .placeholder(R.drawable.ic_person)
-            .error(R.drawable.ic_person)
-            .fallback(R.drawable.ic_person)
+            .placeholder(R.drawable.person)
+            .error(R.drawable.person)
             .into(binding.profileImageView)
     }
 

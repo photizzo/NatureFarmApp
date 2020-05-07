@@ -155,7 +155,7 @@
                     android:id="@+id/profileImageView"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/nature"
+                    android:src="@drawable/person"
                     app:civ_border_color="@android:color/darker_gray"
                     app:civ_border_width="0.5dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
-            app:srcCompat="@drawable/ic_arrow_forward"/>
+            app:srcCompat="@drawable/ic_arrow_forward"
+            app:tint="@android:color/white"
+            app:backgroundTint="@color/colorAccent"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

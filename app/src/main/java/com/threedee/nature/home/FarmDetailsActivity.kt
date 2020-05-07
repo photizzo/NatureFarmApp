@@ -55,7 +55,7 @@ class FarmDetailsActivity : DaggerAppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.farmMapView) as SupportMapFragment
         mapFragment.getMapAsync(this)
         val farm = getFarmFromString(intent.getStringExtra("data")?: return)
-        binding.farmNameTextView.text = farm.farmer.fullName.substringAfter(" ")
+        binding.lastNameTextView.text = farm.farmer.fullName.substringAfter(" ", " ")
         binding.firstNameTextView.text = farm.farmer.fullName.substringBefore(" ")
         binding.addressTextView.text = farm.farmLocation.address
         binding.emailtextView.text = farm.farmer.email
