@@ -24,10 +24,12 @@ class FarmCacheImplementation @Inject constructor(
     private val farmLocationMapper: FarmLocationMapper
 ) : FarmCache {
     override fun addFarm(param: Farm): Completable {
-        return natureDatabase.cachedFarmDao().insertFarm(CachedFarm(
-            farmerMapper.mapToCached(param.farmer),
-            farmLocationMapper.mapToCached(param.farmLocation), -1
-            ))
+        return natureDatabase.cachedFarmDao().insertFarm(
+            CachedFarm(
+                farmerMapper.mapToCached(param.farmer),
+                farmLocationMapper.mapToCached(param.farmLocation)
+            )
+        )
     }
 
     override fun getAllFarms(): Single<List<Farm>> {
@@ -36,6 +38,7 @@ class FarmCacheImplementation @Inject constructor(
                 println("db data: $data")
                 data.map { cachedFarm ->
                     Farm(
+                        cachedFarm.id,
                         farmerMapper.mapFromCached(cachedFarm.farmer),
                         farmLocationMapper.mapFromCached(cachedFarm.farmLocation)
                     )
@@ -44,14 +47,24 @@ class FarmCacheImplementation @Inject constructor(
     }
 
     override fun deleteFarm(param: Farm): Completable {
-        return natureDatabase.cachedFarmDao()
-            .deleteFarmLocation(farmLocationMapper.mapToCached(param.farmLocation))
-            .concatWith(natureDatabase.cachedFarmDao().deleteFarmer(farmerMapper.mapToCached(param.farmer)))
+        println("Delete farm: $param")
+        return natureDatabase.cachedFarmDao().deleteFarm(
+            CachedFarm(
+                farmerMapper.mapToCached(param.farmer),
+                farmLocationMapper.mapToCached(param.farmLocation),
+                param.id
+            )
+        )
     }
 
     override fun updateFarm(param: Farm): Completable {
-        return natureDatabase.cachedFarmDao()
-            .updateFarmLocation(farmLocationMapper.mapToCached(param.farmLocation))
-            .concatWith(natureDatabase.cachedFarmDao().updateFarmer(farmerMapper.mapToCached(param.farmer)))
+        println("Update farm: $param")
+        return natureDatabase.cachedFarmDao().updateFarm(
+            CachedFarm(
+                farmerMapper.mapToCached(param.farmer),
+                farmLocationMapper.mapToCached(param.farmLocation),
+                param.id
+            )
+        )
     }
 }

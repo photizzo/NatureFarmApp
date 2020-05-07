@@ -1,6 +1,7 @@
 package com.threedee.cache.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -29,6 +30,18 @@ abstract class CachedFarmDao {
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertFarm(param: CachedFarm): Completable
+
+    /**
+     * Update farm details
+     */
+    @Update
+    abstract fun updateFarm(param: CachedFarm): Completable
+
+    /**
+     * Delete farm details
+     */
+    @Delete
+    abstract fun deleteFarm(param: CachedFarm): Completable
 
     /**
      * Insert a farmer and creates a new row

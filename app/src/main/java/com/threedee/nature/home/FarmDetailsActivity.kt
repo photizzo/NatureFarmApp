@@ -73,6 +73,7 @@ class FarmDetailsActivity : DaggerAppCompatActivity(), OnMapReadyCallback {
         }
         binding.editButton.setOnClickListener {
             AddFarmActivity.startActivity(this, convertFarmToString(farm))
+            finish()
         }
         binding.deleteButton.setOnClickListener {
             farmViewModel.deleteFarm(farm)

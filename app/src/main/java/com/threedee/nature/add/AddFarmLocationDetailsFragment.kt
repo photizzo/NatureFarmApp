@@ -51,10 +51,12 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.layout_farm_details, container, false)
+            inflater, R.layout.layout_farm_details, container, false
+        )
         initViewModel()
         activity?.let {
-            val mapFragment = childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
+            val mapFragment =
+                childFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment
             mapFragment.getMapAsync(this)
         }
         return binding.root
@@ -68,17 +70,28 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
             farmViewModel.currentPage.value = 0
         }
         binding.doneButton.setOnClickListener {
-            if(validateUserInput()){
+            if (validateUserInput()) {
                 val farmer = farmViewModel.farmer.value
-                val farmLocation = FarmLocation(-1, binding.farmNameTextField.editText?.text.toString(),
-                    binding.addressTextField.editText?.text.toString(),
-                    farmViewModel.locations.value?.map { it.latitude } ?: arrayListOf(),
-                    farmViewModel.locations.value?.map { it.longitude } ?: arrayListOf())
+                val farmLocation =
+                    FarmLocation(-1, binding.farmNameTextField.editText?.text.toString(),
+                        binding.addressTextField.editText?.text.toString(),
+                        farmViewModel.locations.value?.map { it.latitude } ?: arrayListOf(),
+                        farmViewModel.locations.value?.map { it.longitude } ?: arrayListOf())
                 if (farmer == null) {
                     activity?.showSnackbar("Please refill farmer details!")
                     return@setOnClickListener
                 }
-                farmViewModel.addFarm(Farm(farmer, farmLocation))
+                if (farmViewModel.isUpdating.value == true) {
+                    farmViewModel.updateFarm(
+                        Farm(
+                            farmViewModel.updateId.value ?: 0,
+                            farmer,
+                            farmLocation
+                        )
+                    )
+                } else {
+                    farmViewModel.addFarm(Farm(0, farmer, farmLocation))
+                }
             } else {
                 activity?.showSnackbar("Fields marked * are compulsory")
             }
@@ -90,10 +103,9 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
 
     @SuppressLint("CheckResult")
     private fun initViewModel() {
-        activity?.let {
+        activity?.let {activity
             farmViewModel = ViewModelProvider(it, viewModelFactory).get(FarmViewModel::class.java)
-
-            farmViewModel.farmLocation.observe(viewLifecycleOwner, Observer {farmLocation ->
+            farmViewModel.farmLocation.observe(viewLifecycleOwner, Observer { farmLocation ->
                 binding.farmNameTextField.editText?.setText(farmLocation.name)
                 binding.addressTextField.editText?.setText(farmLocation.address)
                 var latLngs = arrayListOf<Location>()
@@ -106,7 +118,7 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
                 farmViewModel.locations.value = latLngs
             })
         }
-        RxBus.listen(MessageEvent::class.java).subscribe {data ->
+        RxBus.listen(MessageEvent::class.java).subscribe { data ->
             var latLngs = arrayListOf<LatLng>()
             farmViewModel.locations.value = data.latLng
             farmViewModel.locations.value?.forEachIndexed { index, location ->
@@ -134,7 +146,8 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
         val POLYLINE_STROKE_WIDTH_PX = 12F
         polyline = mMap!!.addPolyline(
             PolylineOptions()
-                .addAll(latLngs.toMutableList()))
+                .addAll(latLngs.toMutableList())
+        )
         polyline?.endCap = RoundCap()
         polyline?.width = POLYLINE_STROKE_WIDTH_PX
         polyline?.color = Color.BLACK
@@ -143,8 +156,8 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
     }
 
     private fun validateUserInput(): Boolean {
-        binding.farmNameTextField.editText?.validate("Valid name required!") {data -> data.isValidName()}
-        binding.addressTextField.editText?.validate("Valid address required!") {data -> data.isValidName()}
+        binding.farmNameTextField.editText?.validate("Valid name required!") { data -> data.isValidName() }
+        binding.addressTextField.editText?.validate("Valid address required!") { data -> data.isValidName() }
 
         return binding.farmNameTextField.editText?.text.toString().isValidName() && binding.addressTextField.editText?.text.toString().isValidName()
             && farmViewModel.locations.value != null

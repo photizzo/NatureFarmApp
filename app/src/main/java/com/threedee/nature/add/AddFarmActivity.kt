@@ -51,10 +51,16 @@ class AddFarmActivity : DaggerAppCompatActivity() {
         farmViewModel.addFarmLiveData.observe(this, Observer {
             finish()
         })
+        farmViewModel.updateFarmLiveData.observe(this, Observer {
+            finish()
+        })
         if (intent.hasExtra("data")){
             val farm = getFarmFromString(intent.getStringExtra("data") ?: return)
             farmViewModel.farmer.value = farm.farmer
             farmViewModel.farmLocation.value = farm.farmLocation
+            farmViewModel.currentPhotoPath.value = farm.farmer.avatar
+            farmViewModel.isUpdating.value = true
+            farmViewModel.updateId.value = farm.id
         }
     }
 

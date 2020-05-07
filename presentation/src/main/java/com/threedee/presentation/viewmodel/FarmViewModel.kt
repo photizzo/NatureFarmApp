@@ -52,6 +52,8 @@ open class FarmViewModel @Inject constructor(
     var farmer: MutableLiveData<Farmer> = MutableLiveData()
     var farmLocation: MutableLiveData<FarmLocation> = MutableLiveData()
     var currentPhotoPath: MutableLiveData<String> = MutableLiveData()
+    var isUpdating: MutableLiveData<Boolean> = MutableLiveData()
+    var updateId: MutableLiveData<Int> = MutableLiveData()
 
     var locations: MutableLiveData<ArrayList<Location>> = MutableLiveData()
     override fun onCleared() {

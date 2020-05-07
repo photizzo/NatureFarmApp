@@ -98,7 +98,7 @@ class AddFarmersFragment : DaggerFragment() {
         binding.nameTextField.editText?.validate("Valid name required!") {data -> data.isValidName()}
 
         return binding.nameTextField.editText?.text.toString().isValidName() && binding.emailTextField.editText?.text.toString().isValidEmail() &&
-            binding.phoneTextField.editText?.text.toString().isValidPhone() && farmViewModel.currentPhotoPath.value.toString().isNotEmpty()
+            binding.phoneTextField.editText?.text.toString().isValidPhone() && farmViewModel.currentPhotoPath.value != null
     }
 
     private fun setProfileImage(url: String) {

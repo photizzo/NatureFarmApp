@@ -12,5 +12,5 @@ data class CachedFarm(
     @Embedded(prefix = "cfl_")
     val farmLocation: CachedFarmLocation,
     @PrimaryKey(autoGenerate = true)
-    val id: Int
+    val id: Int = 0
 )
