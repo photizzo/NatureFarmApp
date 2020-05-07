@@ -189,6 +189,10 @@ class PickFarmCoordinatesActivity : DaggerAppCompatActivity(), OnMapReadyCallbac
                 latLngs.add(latLng)
             }
             // close the polyline loop
+            if (latLngs.size <= 2) {
+                showSnackbar("You need to pick at least four points that represent your farm map")
+                return@setOnClickListener
+            }
             if (latLngs.size > 2) latLngs.add(
                 LatLng(
                     farmViewModel.locations.value!![0].latitude,
