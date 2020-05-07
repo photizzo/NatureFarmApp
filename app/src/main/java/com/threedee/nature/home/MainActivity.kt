@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.threedee.domain.model.Farm
 import com.threedee.nature.R
 import com.threedee.nature.add.AddFarmActivity
@@ -43,7 +44,7 @@ class MainActivity : DaggerAppCompatActivity() {
     }
 
     private fun itemClick(item: Farm) {
-        FarmDetailsActivity.startActivity(this)
+        FarmDetailsActivity.startActivity(this, convertFarmToString(item))
     }
 
     private fun initViewModel() {
@@ -68,7 +69,7 @@ class MainActivity : DaggerAppCompatActivity() {
             )
         )
         binding.floatingActionButton.setOnClickListener {
-            AddFarmActivity.startActivity(this)
+            AddFarmActivity.startActivity(this, null)
         }
     }
 
@@ -102,6 +103,10 @@ class MainActivity : DaggerAppCompatActivity() {
                     showSnackbar(it) }
             }
         }
+    }
+
+    fun convertFarmToString(farm: Farm): String {
+        return Gson().toJson(farm)
     }
 
     companion object {

@@ -55,6 +55,7 @@ dependencies {
     implementation Libraries.timber
     implementation Libraries.rxandroid
     implementation Libraries.glide
+    implementation Libraries.gson
     implementation Libraries.dagger
     implementation Libraries.daggerSupport
 

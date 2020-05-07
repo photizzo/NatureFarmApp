@@ -71,6 +71,9 @@ class AddFarmersFragment : DaggerFragment() {
                 activity?.showSnackbar("Fields marked * are compulsory")
             }
         }
+        binding.backButton.setOnClickListener {
+            activity?.finish()
+        }
     }
 
     private fun initViewModel() {

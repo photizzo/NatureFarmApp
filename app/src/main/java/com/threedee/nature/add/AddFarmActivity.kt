@@ -12,10 +12,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.threedee.domain.model.Farm
 import com.threedee.nature.R
 import com.threedee.nature.databinding.ActivityAddFarmBinding
 import com.threedee.nature.eventBus.MessageEvent
 import com.threedee.nature.eventBus.RxBus
+import com.threedee.nature.home.FarmDetailsActivity
 import com.threedee.nature.home.MainActivity
 import com.threedee.presentation.viewmodel.FarmViewModel
 import dagger.android.support.DaggerAppCompatActivity
@@ -47,6 +51,11 @@ class AddFarmActivity : DaggerAppCompatActivity() {
         farmViewModel.addFarmLiveData.observe(this, Observer {
             finish()
         })
+        if (intent.hasExtra("data")){
+            val farm = getFarmFromString(intent.getStringExtra("data") ?: return)
+            farmViewModel.farmer.value = farm.farmer
+            farmViewModel.farmLocation.value = farm.farmLocation
+        }
     }
 
     private fun setupViewPager() {
@@ -71,13 +80,23 @@ class AddFarmActivity : DaggerAppCompatActivity() {
         override fun getItemCount(): Int = TRANSACTION_SCREENS_NUMBER
     }
 
+    fun getFarmFromString(data: String): Farm {
+        val listType = object : TypeToken<Farm>(){}.type
+        return Gson().fromJson(data, listType)
+    }
+
     companion object {
         internal const val TRANSACTION_SCREENS_NUMBER = 2
         internal const val ADD_FARMER_POSITION = 0
         internal const val ADD_FARM_LOCATION_POSITION = 1
 
-        fun startActivity(context: Context) {
-            context.startActivity(Intent(context, AddFarmActivity::class.java))
+        fun startActivity(context: Context, data: String?) {
+            context.startActivity(Intent(context, AddFarmActivity::class.java)
+                .apply {
+                    if (data != null){
+                        putExtra("data", data)
+                    }
+                })
         }
     }
 }

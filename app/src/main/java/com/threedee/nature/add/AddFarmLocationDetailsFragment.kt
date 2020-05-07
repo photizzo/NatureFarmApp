@@ -2,11 +2,13 @@ package com.threedee.nature.add
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -79,12 +81,28 @@ class AddFarmLocationDetailsFragment : DaggerFragment(), OnMapReadyCallback {
                 activity?.showSnackbar("Fields marked * are compulsory")
             }
         }
+        binding.backButton.setOnClickListener {
+            activity?.finish()
+        }
     }
 
     @SuppressLint("CheckResult")
     private fun initViewModel() {
         activity?.let {
             farmViewModel = ViewModelProvider(it, viewModelFactory).get(FarmViewModel::class.java)
+
+            farmViewModel.farmLocation.observe(viewLifecycleOwner, Observer {farmLocation ->
+                binding.farmNameTextField.editText?.setText(farmLocation.name)
+                binding.addressTextField.editText?.setText(farmLocation.address)
+                var latLngs = arrayListOf<Location>()
+                farmLocation.latitude.forEachIndexed { index, _ ->
+                    val location = Location("")
+                    location.latitude = farmLocation.latitude[index]
+                    location.longitude = farmLocation.longitude[index]
+                    latLngs.add(location)
+                }
+                farmViewModel.locations.value = latLngs
+            })
         }
         RxBus.listen(MessageEvent::class.java).subscribe {data ->
             var latLngs = arrayListOf<LatLng>()
